@@ -16,19 +16,57 @@ class Test(TestCase):
 
     # case 01-001
     def test_display_brands(self):
+        # setup
         driver = self.set_up()
+
+        # click BRANDS button
+
+        # check list of brands
 
     # case 02-001
     def test_add_brand(self):
+        # setup
         driver = self.set_up()
+
+        # click BRANDS button
+
+        # click ADD BRAND button
+
+        # fill in the date
+
+        # click SAVE button
+
+        # click BACK button
+
+        # check the list of brands
 
     # case 03-001
     def test_delete_brand(self):
+        # setup
         driver = self.set_up()
+
+        # click BRANDS button
+
+        # click EDIT button
+
+        # edit fields
+
+        # click SAVE button
+
+        # click BACK button
+
+        # check the list of BRANDS
 
     # case 04-001
     def test_update_brand(self):
+        # setup
         driver = self.set_up()
+
+        # click BRANDS button
+
+        # click DELETE button
+
+        # check the list of BRANDS
 
     # case 05-001
     def test_5(self):
