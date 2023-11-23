@@ -293,12 +293,12 @@ class Test(TestCase):
         # write new category name in "name" field
         driver.find_element(
             By.ID, "name"
-        ).send_keys("new hammer category name22")
+        ).send_keys("new hammer category name")
 
         # write new category slug in "slug" field
         driver.find_element(
             By.ID, "slug"
-        ).send_keys("new-hammer-category-name22")
+        ).send_keys("new-hammer-category-name")
 
         # click "Save" button
         driver.find_element(
@@ -319,12 +319,57 @@ class Test(TestCase):
             By.XPATH, "/html/body/app-root/div/app-categories-add-edit/div/form/div[3]/div/a"
         ).click()
 
+        time.sleep(3)
+
+    # case 09-002
+    def test_add_category_with_empty_form(self):
+        # log in as admin
+        driver = self.set_up()
+
+        # go to "categories" page
+        self.func.control_panel(driver, "categories")
+
+        # click "Add category" button
+        add_category_button = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, "/html/body/app-root/div/app-list/form/div/a"))
+        )
+        add_category_button.click()
+
+        # click "Save" button
+        driver.find_element(
+            By.XPATH, "/html/body/app-root/div/app-categories-add-edit/div/form/div[3]/div/button"
+        ).click()
+
+        # wait for save message
+        error_message_name = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/div[2]/div[2]/div"))
+        )
+
+        # wait for save message
+        error_message_slug = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(
+                (By.XPATH, "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/div[3]/div[2]/div"))
+        )
+
+        self.assertEqual(error_message_name.text, "Name is required")
+        self.assertEqual(error_message_slug.text, "Slug is required")
+
+    # case 10-001
+    def test_delete_category(self):
+        # log in as admin
+        driver = self.set_up()
+
+        # go to "categories" page
+        self.func.control_panel(driver, "categories")
+
         # find created category by name
         search_bar = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located(
                 (By.XPATH, "/html/body/app-root/div/app-list/form/div/input"))
         )
-        search_bar.send_keys("new hammer category name22")
+        # search_bar.send_keys("new hammer category name")
+        search_bar.send_keys("new hammer category name")
 
         # click "Search" button
         driver.find_element(
@@ -332,14 +377,21 @@ class Test(TestCase):
         ).click()
 
         # delete newly created category
+        time.sleep(2)
         delete_button = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located(
                 (By.XPATH, "/html/body/app-root/div/app-list/table/tbody/tr[1]/td[5]/button"))
         )
         delete_button.click()
 
-        time.sleep(3)
+        # time.sleep(1)
+        # delete_toast = driver.find_element(
+        #     By.CSS_SELECTOR, "body > app-root > app-toasts > ngb-toast"
+        # ).text
 
-    # case 10-001
-    def test_10(self):
-        self.fail()
+        delete_toast_message = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "body > app-root > app-toasts > ngb-toast"))
+        ).text
+
+        self.assertEqual(delete_toast_message, "Category deleted.")
+
