@@ -12,6 +12,8 @@ class Test(TestCase):
     def test_display_brands(self):
         driver = webdriver.Chrome()
         driver.get(self.URL)
+        Functions.login_method_waiting(driver)
+
 
     # case 02-001
     def test_add_brand(self):
