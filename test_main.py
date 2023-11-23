@@ -4,23 +4,27 @@ from selenium.webdriver.common.keys import Keys
 
 
 class Test(TestCase):
+    URL = "https://practicesoftwaretesting.com/#/"
 
     # case 01-001
-    def test_1(self):
+    def test_display_brands(self):
         driver = webdriver.Chrome()
-        driver.get("https://www.simplilearn.com")
+        driver.get(self.URL)
 
     # case 02-001
-    def test_2(self):
-        self.fail()
+    def test_add_brand(self):
+        driver = webdriver.Chrome()
+        driver.get(self.URL)
 
     # case 03-001
-    def test_3(self):
-        self.fail()
+    def test_delete_brand(self):
+        driver = webdriver.Chrome()
+        driver.get(self.URL)
 
     # case 04-001
-    def test_4(self):
-        self.fail()
+    def test_update_brand(self):
+        driver = webdriver.Chrome()
+        driver.get(self.URL)
 
     # case 05-001
     def test_5(self):
