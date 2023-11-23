@@ -288,8 +288,7 @@ class Test(TestCase):
         # select parent id
         hammer_option = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.XPATH,
-                                              "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/"
-                                              "div[1]/div/select/option[5]"))
+                                              "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/div[1]/div/select/option[5]"))
         )
         hammer_option.click()
 
