@@ -7,38 +7,38 @@ class Test(TestCase):
     def test_1(self):
         self.fail()
 
-    # case 01-002
+    # case 02-001
     def test_2(self):
         self.fail()
 
-    # case 01-003
+    # case 03-001
     def test_3(self):
         self.fail()
 
-    # case 01-004
+    # case 04-001
     def test_4(self):
         self.fail()
 
-    # case 01-005
+    # case 05-001
     def test_5(self):
         self.fail()
 
-    # case 01-006
+    # case 06-001
     def test_6(self):
         self.fail()
 
-    # case 01-007
+    # case 07-001
     def test_7(self):
         self.fail()
 
-    # case 01-008
+    # case 08-001
     def test_8(self):
         self.fail()
 
-    # case 01-009
+    # case 09-001
     def test_9(self):
         self.fail()
 
-    # case 01-010
+    # case 10-001
     def test_10(self):
         self.fail()
