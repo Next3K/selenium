@@ -1,9 +1,11 @@
 from unittest import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from functions import Functions
 
 
 class Test(TestCase):
+    func = Functions()
     URL = "https://practicesoftwaretesting.com/#/"
 
     # case 01-001
@@ -36,6 +38,10 @@ class Test(TestCase):
 
     # case 07-001
     def test_7(self):
+        self.fail()
+    
+    # case 07-002
+    def test_7_2(self):
         self.fail()
 
     # case 08-001
