@@ -183,8 +183,10 @@ class Test(TestCase):
         )
 
         # Clear existing values and input new values for Name and Slug
+        name_input.click()
         name_input.clear()
         name_input.send_keys("testing2")
+        slug_input.click()
         slug_input.clear()
         slug_input.send_keys("testing2")
 
@@ -199,6 +201,10 @@ class Test(TestCase):
             EC.element_to_be_clickable((By.XPATH, '//a[@data-test="back"]'))
         )
         back_button.click()
+
+        table_rows = WebDriverWait(driver, 10).until(
+            EC.presence_of_all_elements_located((By.XPATH, '//table[@class="table table-hover"]/tbody/tr'))
+        )
 
         found_element = None
         for row in table_rows:
