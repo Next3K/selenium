@@ -280,13 +280,16 @@ class Test(TestCase):
 
         # expand dropdown for parent id
         dropdown = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/div[1]/div/select"))
+            EC.visibility_of_element_located(
+                (By.XPATH, "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/div[1]/div/select"))
         )
         dropdown.click()
 
         # select parent id
         hammer_option = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/div[1]/div/select/option[5]"))
+            EC.visibility_of_element_located((By.XPATH,
+                                              "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/"
+                                              "div[1]/div/select/option[5]"))
         )
         hammer_option.click()
 
@@ -384,14 +387,10 @@ class Test(TestCase):
         )
         delete_button.click()
 
-        # time.sleep(1)
-        # delete_toast = driver.find_element(
-        #     By.CSS_SELECTOR, "body > app-root > app-toasts > ngb-toast"
-        # ).text
-
+        # get toast message
         delete_toast_message = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, "body > app-root > app-toasts > ngb-toast"))
         ).text
 
+        # check if category deletion was successful
         self.assertEqual(delete_toast_message, "Category deleted.")
-
