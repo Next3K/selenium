@@ -102,20 +102,139 @@ class Test(TestCase):
         # check the list of BRANDS
 
     # case 05-001
-    def test_5(self):
+    def test_update_product(self):
+
+        #--SETUP
+        driver = self.set_up()
+
+        #--LOGIN
+        func.login_method(driver)
+
+        #--GO TO PRODUCT PANEL
+        func.control_panel(driver, "products")
+
+        #--SELECT PRODUCT
+        rows = driver.find_elements(By.XPATH, '//tbody/tr')
+        target_id = "01HFW6ET98CZ3YS40S05SZKC7Q"
+        row_with_product = func.find_element_from_table(driver, target_id)
+        
+        edit_button = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, './/a[@data-test="product-edit-' + target_id + '"]'))
+        )
+        edit_button.click()
+
+        #--EDIT PRODUCT DETAILS
+        price_input = WebDriverWait(driver, 3).until(
+            EC.visibility_of_element_located((By.ID, 'price'))
+        )
+        price_input.clear()
+        price_input.send_keys(5)
+
+        #--SAVE PRODUCT DETAILS
+        btn_save = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, '//button[@data-test="product-submit"]'))
+        )
+        btn_save.click()
+        edit_completed_flag = driver.find_element(By.XPATH, '//div[@role="alert"]')
+
+        btn_back = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, '//a[@data-test="back"]'))
+        )
+        btn_back.click()
+
+        #--ASSERTS
+        row_with_edited_product = func.find_element_from_table(driver, target_id)
+
+        actual_price = row_with_edited_product.find_element(By.XPATH, './/td[4]').text
+        expected_price = "$5.00"
+
+        assert actual_price == expected_price, "not edited"
+
+
         self.fail()
 
     # case 06-001
-    def test_6(self):
-        self.fail()
+    def test_remove_product(self):
+        #--SETUP
+        driver = self.set_up()
+
+        #--LOGIN
+        func.login_method(driver)
+
+        #--GO TO PRODUCT PANEL
+        func.control_panel(driver, "products")
+ 
+        #--SELECT PRODUCT
+        rows = driver.find_elements(By.XPATH, '//tbody/tr')
+        target_id = "01HFW6ET98CZ3YS40S05SZKC7Q"
+        row_with_product = func.find_element_from_table(driver, target_id)
+
+        #--DELETE PRODUCT
+        delete_button = row_with_product.find_element(By.XPATH, './/a[@data-test="product-delete-' + target_id + '"]')
+        delete_button.click()
+        
+        product_deleted_flag = WebDriverWait(driver, 2).until(
+            EC.presence_of_element_located((By.XPATH, '//div[@class="toast-body" and contains(text(), "Product deleted.")]'))
+        )
+
+        #--ASSERTS
+        row_with_product = func.find_element_from_table(driver, target_id)
+        assert row_with_product is None, "Product not removed"
 
     # case 07-001
-    def test_7(self):
-        self.fail()
+    def test_display_products_via_brand_filter(self):
+        #--SETUP
+        driver = self.set_up()
+
+        time.sleep(1)
+        brand = "01HFW9WNQTZ1Y53XWRC6X63AG5"
+
+        #--SELECT BRAND FILTER
+
+        checkbox = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, '//input[@data-test="brand-'+brand+'"]'))
+        )
+        checkbox.click()
+
+        #--ASSERTS
+
+        #----filter flag
+        filter_completed_flag = WebDriverWait(driver, 3).until(
+            EC.presence_of_element_located((By.XPATH, '//input[@data-test="filter_completed"]'))
+        )
+        assert filter_completed_flag not None, "Not filtered"
+
+        #----check if product have proper brand
+        selected_product = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, '//a[@data-test="product-01HFW9WNRBXR513FE6RP0FJYW8"]'))
+        )
+        selected_product.click()
+
+        brand_name = WebDriverWait(driver, 3).until(
+            EC.presence_of_element_located((By.XPATH, '/html/body/app-root/div/app-detail/div[1]/div[2]/p[1]/span[2]'))
+        )
+        assert brand_name.text == "Brand name 1", "Wrong brand"
 
     # case 07-002
-    def test_7_2(self):
-        self.fail()
+    def test_display_product_information(self):
+        #--SETUP
+        driver = self.set_up()
+
+        #--SELECT PRODUCT
+        selected_product = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, '//a[@data-test="product-01HFW9WNRBXR513FE6RP0FJYW8"]'))
+        )
+        selected_product.click()
+    
+        #--ASSERTS
+        time.sleep(3)
+        product_name = driver.find_element(By.XPATH, '//a[@data-test="product-name"]')
+        product_price = driver.find_element(By.XPATH, '//a[@data-test="unit-price"]')
+        product_description = driver.find_element(By.XPATH, '//a[@data-test="product-description"]')
+
+        assert "" == product_name, "Names are not the same"
+        assert "" == product_price, "Price are not the same"
+        assert "" == product_description, "Description are not the same"
 
     # case 08-001
     def test_8(self):
