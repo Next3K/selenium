@@ -1,3 +1,4 @@
+import os
 import time
 from unittest import TestCase
 from selenium import webdriver
@@ -183,9 +184,11 @@ class Test(TestCase):
         )
 
         # Clear existing values and input new values for Name and Slug
+        time.sleep(1)
         name_input.click()
         name_input.clear()
         name_input.send_keys("testing2")
+        time.sleep(1)
         slug_input.click()
         slug_input.clear()
         slug_input.send_keys("testing2")
