@@ -1,11 +1,14 @@
 from unittest import TestCase
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 
 class Test(TestCase):
 
     # case 01-001
     def test_1(self):
-        self.fail()
+        driver = webdriver.Chrome()
+        driver.get("https://www.simplilearn.com")
 
     # case 02-001
     def test_2(self):
