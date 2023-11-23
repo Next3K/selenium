@@ -8,27 +8,27 @@ class Test(TestCase):
     func = Functions()
     URL = "https://practicesoftwaretesting.com/#/"
 
-    # case 01-001
-    def test_display_brands(self):
+    def set_up(self):
         driver = webdriver.Chrome()
         driver.get(self.URL)
         Functions.login_method_waiting(driver)
+        return driver
 
+    # case 01-001
+    def test_display_brands(self):
+        driver = self.set_up()
 
     # case 02-001
     def test_add_brand(self):
-        driver = webdriver.Chrome()
-        driver.get(self.URL)
+        driver = self.set_up()
 
     # case 03-001
     def test_delete_brand(self):
-        driver = webdriver.Chrome()
-        driver.get(self.URL)
+        driver = self.set_up()
 
     # case 04-001
     def test_update_brand(self):
-        driver = webdriver.Chrome()
-        driver.get(self.URL)
+        driver = self.set_up()
 
     # case 05-001
     def test_5(self):
@@ -41,7 +41,7 @@ class Test(TestCase):
     # case 07-001
     def test_7(self):
         self.fail()
-    
+
     # case 07-002
     def test_7_2(self):
         self.fail()

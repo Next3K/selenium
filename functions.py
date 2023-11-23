@@ -2,8 +2,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
-from selenium.webdriver.common.by import By  # Dodaj import dla klasy By
+from selenium.webdriver.common.by import By
 import time
+
 
 class Functions():
     def login_method(driver):
@@ -49,5 +50,3 @@ class Functions():
         products_menu = driver.find_element(By.XPATH, '//a[@routerlink="/admin/products"]')
         products_menu.click()
         time.sleep(2)
-
-    
