@@ -1,3 +1,4 @@
+import os
 import time
 from unittest import TestCase
 from selenium import webdriver
@@ -188,9 +189,11 @@ class Test(TestCase):
         )
 
         # Clear existing values and input new values for Name and Slug
+        time.sleep(1)
         name_input.click()
         name_input.clear()
         name_input.send_keys("testing2")
+        time.sleep(1)
         slug_input.click()
         slug_input.clear()
         slug_input.send_keys("testing2")
@@ -462,8 +465,7 @@ class Test(TestCase):
         # select parent id
         hammer_option = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.XPATH,
-                                              "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/"
-                                              "div[1]/div/select/option[5]"))
+                                              "/html/body/app-root/div/app-categories-add-edit/div/form/div[2]/div/div[1]/div/select/option[5]"))
         )
         hammer_option.click()
 
