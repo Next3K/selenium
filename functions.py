@@ -28,7 +28,7 @@ class Functions():
             )
             navigation_button.click()
         except TimeoutException:
-            print("Navigation button not found.")
+            print("")
 
         time.sleep(1)
 

@@ -7,7 +7,7 @@ from functions import Functions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
-
+import unittest
 
 def click_brands(driver):
     # click BRANDS button
@@ -61,6 +61,7 @@ class Test(TestCase):
         # Check if there are rows in the table
         rows = table.find_elements(By.TAG_NAME, 'tr')
         assert len(rows) > 0, "Table has no rows"
+        driver.close()
 
     # case 02-001
     def test_add_brand(self):
@@ -95,6 +96,7 @@ class Test(TestCase):
 
         # Assert if the element is found in the table based on Slug and Brand Name
         assert element_found, "Element with Slug 'abc' and Brand Name 'xyz' not found in the table"
+        driver.close()
 
     # case 03-001
     def test_delete_brand(self):
@@ -126,6 +128,7 @@ class Test(TestCase):
                 break
 
         assert found_element is not None, "Element with Slug 'test' and Name 'test' deleted"
+        driver.close()
 
     @staticmethod
     def add_brand(driver):
@@ -155,7 +158,7 @@ class Test(TestCase):
         save_button.click()
         # Click the "Back" button after saving
         back_button.click()
-
+        
     # case 04-001
     def test_update_brand(self):
         # setup
@@ -229,6 +232,7 @@ class Test(TestCase):
                 break
 
         assert found_element is not None, "Element with Slug 'test' and Name 'test' deleted"
+        driver.close()
 
     # # case 05-001
     def test_update_product(self):
@@ -440,6 +444,7 @@ class Test(TestCase):
         self.assertEqual(label_2.text, "Power Tools")
         self.assertTrue(len(ul_2.text) > 0)
         self.assertEqual(label_3.text, "Other")
+        driver.close()  
 
     # case 09-001
     def test_add_category(self):
@@ -499,6 +504,7 @@ class Test(TestCase):
         ).click()
 
         time.sleep(3)
+        driver.close()  
 
     # case 09-002
     def test_add_category_with_empty_form(self):
@@ -533,6 +539,7 @@ class Test(TestCase):
 
         self.assertEqual(error_message_name.text, "Name is required")
         self.assertEqual(error_message_slug.text, "Slug is required")
+        driver.close()  
 
     # case 10-001
     def test_delete_category(self):
@@ -570,3 +577,8 @@ class Test(TestCase):
 
         # check if category deletion was successful
         self.assertEqual(delete_toast_message, "Category deleted.")
+        driver.close()  
+
+
+if __name__ == "__main__":
+     unittest.main()
