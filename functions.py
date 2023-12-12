@@ -50,6 +50,7 @@ class Functions():
         login_button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//input[@data-test="login-submit"]'))
         )
+        time.sleep(1)
         login_button.click()
 
     def control_panel(self, driver, button_name):
