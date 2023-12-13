@@ -5,12 +5,22 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from functions import Functions
 
 URL = "https://practicesoftwaretesting.com/#/"
 driver = webdriver.Chrome()
-func = Functions()
+
+def control_panel(driver, button_name):
+    admin_menu = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.ID, 'admin-menu'))
+    )
+    admin_menu.click()
+
+    products_menu = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '//a[@routerlink="/admin/' + button_name + '"]'))
+    )
+    products_menu.click()
+    time.sleep(2)
 
 @given("the user is logged in as an admin")
 def log_in_as_admin(context):
@@ -20,7 +30,7 @@ def log_in_as_admin(context):
 
 @step("the user is on the Categories page")
 def go_to_categories_page(context):
-    func.control_panel(driver, "categories")
+    control_panel(driver, "categories")
 
 
 @when('the user adds a new category with name "{category_name}" and slug "{category_slug}"')
