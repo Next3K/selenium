@@ -87,7 +87,7 @@ def delete_category(context, category_name):
         EC.visibility_of_element_located(
             (By.XPATH, "/html/body/app-root/div/app-list/form/div/input"))
     )
-    search_bar.send_keys("new hammer category name")
+    search_bar.send_keys(category_name)
     time.sleep(1)
     # click "Search" button
     driver.find_element(
