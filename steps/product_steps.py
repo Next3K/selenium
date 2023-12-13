@@ -24,6 +24,11 @@ def control_panel(driver, button_name):
     products_menu.click()
     time.sleep(2)
 
+
+#------------------------------#
+#             GIVEN            #       
+#------------------------------#
+
 @given("the user is logged as an admin")
 def go_to_products_panel(context):
     driver.get(URL)
@@ -32,6 +37,11 @@ def go_to_products_panel(context):
 @given("the user is on the Products panel in the administrator's dashboard")
 def go_to_products_panel(context):
     control_panel(driver, "products")
+
+
+#------------------------------#
+#             WHEN             #       
+#------------------------------#
 
 @when("the user selects a product to edit")
 def select_product_to_edit(context):
@@ -46,7 +56,6 @@ def select_product_to_edit(context):
         EC.element_to_be_clickable((By.CSS_SELECTOR, 'a[data-test^="product-edit-"]'))
     ).click()
 
-
 @when("edits the product details")
 def edit_product_details(context):
     time.sleep(3)
@@ -60,13 +69,11 @@ def edit_product_details(context):
     time.sleep(2)
     context.edit_completed_flag = driver.find_element(By.XPATH, '//div[@role="alert"]').text
 
-
 @when("the user goes back to the product list")
 def go_back_to_product_list(context):
     WebDriverWait(driver, 5).until(
         EC.element_to_be_clickable((By.XPATH, '//a[@data-test="back"]'))
     ).click()
-
 
 @when("the user searches for the edited product")
 def search_for_edited_product(context):
@@ -76,6 +83,10 @@ def search_for_edited_product(context):
     ).click()
 
 
+#------------------------------#
+#             THEN             #       
+#------------------------------#
+
 @then("the updated product with the new data should appear in the product list")
 def verify_updated_product_in_list(context):
     row_with_edited_product = WebDriverWait(driver, 3).until(
@@ -84,7 +95,6 @@ def verify_updated_product_in_list(context):
 
     actual_price = row_with_edited_product.find_element(By.XPATH, './td[4]').text
     assert str(actual_price) == "$5.00", "Unexpected product price in the list"
-
 
 @then("the browser is closed")
 def close_browser(context):
