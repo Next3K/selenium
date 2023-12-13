@@ -1,7 +1,7 @@
 Feature: Update a product details
     As an admin
     I want to update the details of a product
-    So that the changes are reflected in both the product list and page of the product 
+    So that the changes are reflected in the product list
 
     Scenario: Update product details and verify the changes
         Given the user is logged as an admin
